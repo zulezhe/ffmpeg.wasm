@@ -1,5 +1,6 @@
 /* eslint-disable no-undef */
 import { log } from '../utils/log';
+const resolveURL = require('resolve-url');
 import {
   CREATE_FFMPEG_CORE_IS_NOT_DEFINED,
 } from '../utils/errors';
@@ -30,7 +31,7 @@ export const getCreateFFmpegCore = async ({
     if (typeof _corePath !== 'string') {
       throw Error('corePath should be a string!');
     }
-    const coreRemotePath = new URL(_corePath, import.meta.url).href;
+    const coreRemotePath = resolveURL(_corePath);
     const corePath = await toBlobURL(
       coreRemotePath,
       'application/javascript',
@@ -69,7 +70,7 @@ export const getCreateFFmpegCore = async ({
   if (typeof _corePath !== 'string') {
     throw Error('corePath should be a string!');
   }
-  const coreRemotePath = new URL(_corePath, import.meta.url).href;
+  const coreRemotePath = resolveURL(_corePath);
   const corePath = await toBlobURL(
     coreRemotePath,
     'application/javascript',
